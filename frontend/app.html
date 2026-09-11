@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#090a0f">
+  <meta name="description" content="DataKite AI — universal business analytics workspace.">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" href="icon.svg">
+  <title>DataKite AI — Business Intelligence</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <meta name="theme-color" content="#0b0d12">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+</head>
+<body>
+  <div class="app" id="app">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-mark">✦</div>
+        <div><b>DataKite</b><span>AI BUSINESS INTELLIGENCE</span></div>
+      </div>
+      <button class="new-btn" id="newAnalysis"><span>＋</span> New analysis</button>
+      <nav class="nav">
+        <button class="nav-item active" data-view="overview"><span>⌂</span> Overview</button>
+        <button class="nav-item" data-view="dashboard"><span>▦</span> Dashboard</button>
+        <button class="nav-item" data-view="chat"><span>✦</span> Ask DataKite</button>
+        <button class="nav-item" data-view="exports"><span>⇩</span> Export center</button>
+      </nav>
+      <div class="side-card">
+        <div class="side-label">WORKSPACE</div>
+        <div class="side-status"><i></i><span id="sideStatus">Waiting for data</span></div>
+        <small>Up to 10 files · Excel · CSV · PDF · Word · PowerPoint</small>
+      </div>
+      <div class="sidebar-footer"><span>DataKite AI</span><span>v1.0</span></div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="top-left">
+          <button class="icon-btn mobile-only" id="menuBtn">☰</button>
+          <div><div class="eyebrow">INTELLIGENCE WORKSPACE</div><h1 id="pageTitle">Overview</h1></div>
+        </div>
+        <div class="top-actions">
+          <button class="ghost-btn" id="installBtn" hidden>Install app</button><button class="ghost-btn help-btn" id="helpBtn" aria-label="Open DataKite Help">? Help</button>
+          <div class="online"><i></i> AI online</div>
+          <div class="profile-wrap"><button class="avatar" id="profileBtn">S</button><div class="profile-menu" id="profileMenu"><b id="profileName">DataKite user</b><small id="profileEmail">Free account</small><span class="profile-plan">FREE PLAN</span><button id="logoutBtn">Log out</button></div></div>
+        </div>
+      </header>
+
+      <div class="content">
+        <section class="view active" id="view-overview">
+          <div class="hero-grid">
+            <div class="hero-copy">
+              <div class="hero-badge"><span>✦</span> UNIVERSAL ANALYTICS</div>
+              <h2>Turn business data into <em>decisions.</em></h2>
+              <p>Upload your files once. DataKite AI detects the business structure, builds KPIs, finds trends and lets you ask questions in plain language.</p>
+              <div class="hero-pills"><span>Any business</span><span>Multi-file</span><span>AI insights</span><span>Reports ready</span></div>
+            </div>
+            <div class="upload-card" id="uploadDropzone">
+              <input id="fileInput" type="file" multiple accept=".csv,.xlsx,.xls,.json,.pdf,.docx,.pptx" hidden>
+              <div class="upload-orb">↑</div>
+              <h3>Drop your data here</h3>
+              <p>Up to 10 files at once</p>
+              <button class="primary-btn" id="browseBtn">Choose files</button>
+              <div class="upload-types">XLSX · XLS · CSV · JSON · PDF · DOCX · PPTX</div>
+              <div class="selected-files" id="selectedFiles"></div>
+              <div class="upload-progress" id="uploadProgress" hidden><div></div></div>
+            </div>
+          </div>
+
+          <div class="getting-started">
+            <div class="getting-copy"><span class="eyebrow">NEW TO DATAKITE?</span><h3>Four steps from file to answer.</h3><p>Upload your data, let DataKite understand it, explore the dashboard, then ask the AI anything.</p></div>
+            <div class="getting-steps"><span><b>1</b> Upload</span><span><b>2</b> Understand</span><span><b>3</b> Analyze</span><span><b>4</b> Ask & decide</span></div>
+            <button class="ghost-btn" id="helpStartBtn">How to use →</button>
+          </div>
+
+          <div class="section-head"><div><span class="eyebrow">FAST START</span><h3>What DataKite can do</h3></div></div>
+          <div class="feature-grid">
+            <article class="feature"><span>◈</span><b>Understand</b><p>Automatically detect metrics, dimensions and dates.</p></article>
+            <article class="feature"><span>⌁</span><b>Analyze</b><p>KPIs, trends, anomalies, forecasts and business insights.</p></article>
+            <article class="feature"><span>✦</span><b>Ask</b><p>Ask questions naturally and get evidence-based answers.</p></article>
+            <article class="feature"><span>⇩</span><b>Export</b><p>Generate Excel, PDF, Word, PowerPoint, analyzed-data CSV and JSON outputs.</p></article>
+          </div>
+        </section>
+
+        <section class="view" id="view-dashboard">
+          <div class="dataset-strip" id="datasetStrip">
+            <div><span class="eyebrow">CURRENT DATASET</span><strong id="datasetName">No dataset loaded</strong></div>
+            <div class="dataset-meta"><span id="datasetRows">0 rows</span><span id="datasetCols">0 columns</span><button class="ghost-btn" id="changeData">Change data</button></div>
+          </div>
+          <div class="kpi-grid" id="kpiGrid"></div><section class="health-score" id="healthScore"><div class="health-head"><div><span class="eyebrow">BUSINESS HEALTH</span><strong>—/100</strong></div><p>Upload your data to calculate an explainable business health score.</p></div></section>
+          <div class="charts-grid">
+            <article class="chart-card wide"><div class="chart-head"><div><span class="eyebrow">TREND</span><h3>Sales over time</h3></div><span class="chart-note" id="trendField">Auto detected</span></div><div class="canvas-wrap"><canvas id="salesChart"></canvas><div class="empty-chart" id="salesEmpty">Upload a dataset to generate this chart.</div></div></article>
+            <article class="chart-card"><div class="chart-head"><div><span class="eyebrow">CATEGORY</span><h3>Sales by category</h3></div></div><div class="canvas-wrap"><canvas id="categoryChart"></canvas><div class="empty-chart" id="categoryEmpty">No category detected.</div></div></article>
+            <article class="chart-card"><div class="chart-head"><div><span class="eyebrow">GEOGRAPHY</span><h3>Sales by region / city</h3></div></div><div class="canvas-wrap"><canvas id="cityChart"></canvas><div class="empty-chart" id="cityEmpty">No region or city detected.</div></div></article>
+            <article class="chart-card"><div class="chart-head"><div><span class="eyebrow">PRODUCT</span><h3>Top products</h3></div></div><div class="canvas-wrap"><canvas id="productChart"></canvas><div class="empty-chart" id="productEmpty">No product detected.</div></div></article>
+            <article class="chart-card"><div class="chart-head"><div><span class="eyebrow">STATUS</span><h3>Order / record status</h3></div></div><div class="canvas-wrap"><canvas id="statusChart"></canvas><div class="empty-chart" id="statusEmpty">No status detected.</div></div></article>
+          </div>
+        </section>
+
+        <section class="view" id="view-chat">
+          <div class="chat-layout">
+            <div class="chat-main">
+              <div class="chat-header"><div><span class="eyebrow">AI ANALYST</span><h3>Ask anything about your data</h3></div><span class="ai-dot">● Ready</span></div>
+              <div class="messages" id="messages"><div class="welcome-msg"><div class="ai-mark">✦</div><div><b>DataKite AI</b><p>Upload your business data and ask me anything — revenue, customers, products, trends, anomalies, comparisons or recommendations.</p><div class="suggestions"><button data-q="Give me a business summary">Business summary</button><button data-q="Show me the key KPIs">Key KPIs</button><button data-q="What are the most important trends?">Important trends</button><button data-q="Give me business recommendations">Recommendations</button></div></div></div></div>
+              <div class="chat-input-wrap"><textarea id="question" rows="1" placeholder="Ask a question about your data…"></textarea><button class="send-btn" id="sendBtn">↑</button></div>
+            </div>
+            <aside class="chat-side"><div class="mini-card"><span class="eyebrow">SUGGESTED</span><button data-q="Which product performs best?">Which product performs best?</button><button data-q="Which city or region has the highest sales?">Top city / region?</button><button data-q="Find unusual patterns in my data">Find unusual patterns</button><button data-q="Forecast the next period">Forecast the next period</button></div><div class="mini-card"><span class="eyebrow">DATA STATUS</span><div class="data-status" id="chatDataStatus">No file uploaded</div></div></aside>
+          </div>
+        </section>
+
+        <section class="view" id="view-exports">
+          <div class="export-hero"><span class="hero-badge">EXPORT CENTER</span><h2>Take your analysis anywhere.</h2><p>Generate polished business deliverables from the dataset currently loaded in DataKite AI.</p></div>
+          <div class="export-grid">
+            <button class="export-card" data-export="excel"><span>▣</span><b>Excel dashboard</b><small>Interactive business workbook</small><strong>Download →</strong></button>
+            <button class="export-card" data-export="pdf"><span>▤</span><b>PDF report</b><small>Executive analysis report</small><strong>Download →</strong></button>
+            <button class="export-card" data-export="word"><span>W</span><b>Word report</b><small>Editable business report</small><strong>Download →</strong></button>
+            <button class="export-card" data-export="ppt"><span>▥</span><b>PowerPoint</b><small>Presentation-ready slides</small><strong>Download →</strong></button>
+            <button class="export-card" data-export="data"><span>↓</span><b>Filtered data</b><small>Current analyzed CSV</small><strong>Download →</strong></button>
+            <button class="export-card" data-export="json"><span>{ }</span><b>JSON data</b><small>Portable structured data</small><strong>Download →</strong></button>
+          </div>
+          <div class="export-note"><b>Tip:</b> Generate the dashboard after uploading your data so every output uses the same analysis context.</div>
+        </section>
+      </div>
+    </main>
+  </div>
+  <div class="app-error" id="appError" role="alert" aria-live="polite" hidden>
+    <div class="error-icon">!</div>
+    <div class="error-copy"><span class="eyebrow">DATAKITE HELP</span><strong id="errorTitle">Something went wrong</strong><p id="errorMessage">We couldn't complete that action.</p><small id="errorFix">Try again or open Help for guidance.</small></div>
+    <div class="error-actions"><button class="ghost-btn" id="errorRetry">Try again</button><button class="error-close" id="errorClose" aria-label="Dismiss error">×</button></div>
+  </div>
+  <div class="help-modal" id="helpModal" aria-hidden="true">
+    <div class="help-backdrop" data-close-help></div>
+    <div class="help-card" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
+      <button class="help-close" data-close-help aria-label="Close Help">×</button>
+      <div class="help-top"><div class="help-mark">?</div><div><span class="eyebrow">DATAKITE AI GUIDE</span><h2 id="helpTitle">How can we help?</h2><p>Simple answers for using your workspace and fixing common problems.</p></div></div>
+      <div class="help-grid">
+        <button class="help-topic" data-help-topic="upload"><b>📁 Upload files</b><span>Excel, CSV, JSON, PDF, Word and PowerPoint · up to 10 files.</span></button>
+        <button class="help-topic" data-help-topic="questions"><b>✦ Ask the AI</b><span>Ask about KPIs, trends, customers, products, anomalies or recommendations.</span></button>
+        <button class="help-topic" data-help-topic="dashboard"><b>▦ Read the dashboard</b><span>Start with KPIs, then use charts to understand what changed.</span></button>
+        <button class="help-topic" data-help-topic="export"><b>⇩ Export results</b><span>Create Excel, PDF, Word, PowerPoint, analyzed CSV or JSON outputs.</span></button>
+        <button class="help-topic" data-help-topic="errors"><b>⚠ Fix an error</b><span>See the problem, the reason and the next action. Technical details stay hidden.</span></button>
+        <button class="help-topic" data-help-topic="install"><b>＋ Install DataKite</b><span>Use Chrome's Install option to add DataKite to your desktop or phone.</span></button>
+      </div>
+      <div class="help-answer" id="helpAnswer"><span class="eyebrow">QUICK START</span><h3>Upload → Understand → Analyze → Ask</h3><p>Start with one clean business file. DataKite will detect the useful fields automatically. If something goes wrong, use <b>Try again</b> or come back here for the next step.</p></div>
+      <div class="help-footer"><span>Still stuck?</span><button class="ghost-btn" id="helpCloseBtn">Back to workspace</button></div>
+    </div>
+  </div>
+  <div class="toast" id="toast"></div>
+  <div class="mobile-nav"><button data-view="overview">⌂<span>Home</span></button><button data-view="dashboard">▦<span>Dashboard</span></button><button data-view="chat">✦<span>Ask AI</span></button><button data-view="exports">⇩<span>Export</span></button></div>
+  <script src="/script.js?v=7"></script>
+<script>
+(async()=>{try{const r=await fetch('/auth/me');const d=await r.json();if(!d.authenticated){location.href='/';return;}const u=d.user||{};const safe=v=>String(v||'').replace(/[<>]/g,'');document.getElementById('profileName').textContent=safe(u.name);document.getElementById('profileEmail').textContent=safe(u.email);document.querySelectorAll('.avatar').forEach(a=>a.textContent=safe(u.name).charAt(0).toUpperCase()||'U');const s=document.querySelector('.side-status');if(s)s.innerHTML='<i></i><span>Hi, '+safe(u.name)+'</span>';}catch(e){location.href='/';}})();
+document.getElementById('profileBtn')?.addEventListener('click',()=>document.getElementById('profileMenu')?.classList.toggle('open'));
+document.getElementById('logoutBtn')?.addEventListener('click',async()=>{await fetch('/auth/logout',{method:'POST'});localStorage.removeItem('datakite_user');location.href='/';});
+</script>
+</body>
+</html>

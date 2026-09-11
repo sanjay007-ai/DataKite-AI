@@ -1,0 +1,9 @@
+uploads/*
+backend/report_charts/*
+backend/__pycache__/
+**/__pycache__/
+**/*.pyc
+.git/
+.gitignore
+docs/
+*.md
