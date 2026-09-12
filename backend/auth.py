@@ -1,5 +1,6 @@
 import os
 import sqlite3
+import hmac
 from pathlib import Path
 from flask import session
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -63,6 +64,11 @@ def create_user(name, email, password):
 
 def authenticate(email, password):
     email = str(email or "").strip().lower()
+    admin_email = str(os.environ.get("DATAKITE_ADMIN_EMAIL") or "").strip().lower()
+    admin_password = str(os.environ.get("DATAKITE_ADMIN_PASSWORD") or "")
+    if admin_email and admin_password and hmac.compare_digest(email, admin_email) and hmac.compare_digest(str(password or ""), admin_password):
+        return {"id": 0, "name": "Sanjay", "email": admin_email}
+
     with _connect() as conn:
         row = conn.execute(
             "SELECT id, name, email, password_hash FROM users WHERE email = ?",
